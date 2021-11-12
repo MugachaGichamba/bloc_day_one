@@ -13,6 +13,6 @@ class CounterCubit extends Cubit<CounterState> {
   // functions to emit new counter states with new counter values passed to their constructors
   // functions will be called from the UI
   // state keyword access current state of cubit
-  void increment() => emit(CounterState(counterValue: state.counterValue + 1));
-  void decrement() => emit(CounterState(counterValue: state.counterValue - 1));
+  void increment() => emit(CounterState(counterValue: state.counterValue + 1, wasIncremented: true));
+  void decrement() => emit(CounterState(counterValue: state.counterValue - 1, wasIncremented: false));
 }
