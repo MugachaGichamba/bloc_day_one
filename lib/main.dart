@@ -2,7 +2,9 @@
 // emerging from the app letting the user know what is going on
 
 import 'package:bloc_day_one/logic/cubit/counter_cubit.dart';
+import 'package:bloc_day_one/logic/cubit/internet_cubit.dart';
 import 'package:bloc_day_one/presentation/screens/third_screen.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,39 +13,40 @@ import 'presentation/screens/home_screen.dart';
 import 'presentation/screens/second_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp(
+    appRouter: AppRouter(),
+    connectivity: Connectivity(),
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
+class MyApp extends StatelessWidget {
+  final AppRouter appRouter;
+  final Connectivity connectivity;
 
-class _MyAppState extends State<MyApp> {
-  // final CounterCubit _counterCubit = CounterCubit();
+  const MyApp({
+    Key key,
+    @required this.connectivity,
+    @required this.appRouter,
+  }) : super(key: key);
 
-final AppRouter _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
-    // creates and provides a single and unique instance
-    // of the counter cubit and make it available below
-    // material app subtree widget
-    // dependency injection widget
-    // use for both bloc and cubit
-    //since cubit is a small part of a bloc
-    return MaterialApp(
-      title: 'Bloc',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<InternetCubit>(
+          create: (context) => InternetCubit(connectivity: connectivity),
+        ),
+        BlocProvider<CounterCubit>(
+          create: (context) => CounterCubit(internetCubit: context.bloc<InternetCubit>()),
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Bloc',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        onGenerateRoute: appRouter.onGenerateRoute,
       ),
-  onGenerateRoute: _appRouter.onGenerateRoute,
     );
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    _appRouter.dispose();
-    super.dispose();
   }
 }

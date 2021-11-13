@@ -1,4 +1,6 @@
+import 'package:bloc_day_one/constants/enums.dart';
 import 'package:bloc_day_one/logic/cubit/counter_cubit.dart';
+import 'package:bloc_day_one/logic/cubit/internet_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,6 +34,20 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            BlocBuilder<InternetCubit, InternetState>(
+                builder: (context, state) {
+              if (state is InternetConnected &&
+                  state.connectionType == ConnectionType.Wifi) {
+                return Text("wifi");
+              } else if (state is InternetConnected &&
+                  state.connectionType == ConnectionType.Mobile) {
+                return Text("mobile");
+              } else if (state is InternetDisconnected) {
+                return Text("disconnected");
+              }
+              return CircularProgressIndicator();
+            }),
+
             Text(
               'You have pushed the button this many times:',
             ),
@@ -92,24 +108,24 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    // this is how you access the cubit instance
-                    // increment one to current state and emmit new value
-                    BlocProvider.of<CounterCubit>(context).decrement();
-                    //     context.bloc<CounterCubit>().decrement();
-                  },
-                  tooltip: 'Decrement',
-                  child: Icon(Icons.remove),
-                ),
-                FloatingActionButton(
-                  onPressed: () {
-                    // increment one to current state and emmit new value
-                    BlocProvider.of<CounterCubit>(context).increment();
-                  },
-                  tooltip: 'Increment',
-                  child: Icon(Icons.add),
-                ),
+                // FloatingActionButton(
+                //   onPressed: () {
+                //     // this is how you access the cubit instance
+                //     // increment one to current state and emmit new value
+                //     BlocProvider.of<CounterCubit>(context).decrement();
+                //     //     context.bloc<CounterCubit>().decrement();
+                //   },
+                //   tooltip: 'Decrement',
+                //   child: Icon(Icons.remove),
+                // ),
+                // FloatingActionButton(
+                //   onPressed: () {
+                //     // increment one to current state and emmit new value
+                //     BlocProvider.of<CounterCubit>(context).increment();
+                //   },
+                //   tooltip: 'Increment',
+                //   child: Icon(Icons.add),
+                // ),
                 SizedBox(
                   height: 24,
                 ),
