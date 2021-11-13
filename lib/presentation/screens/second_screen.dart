@@ -108,11 +108,7 @@ class _SecondScreenState extends State<SecondScreen> {
                   tooltip: 'Increment',
                   child: Icon(Icons.add),
                 ),
-                SizedBox(height: 24,),
-                MaterialButton(onPressed: (){},
-                  child: Text("Go to second screen"),
-                  color: widget.color,
-                )
+
               ],
             ),
           ],
