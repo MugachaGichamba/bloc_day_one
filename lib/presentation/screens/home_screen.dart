@@ -63,9 +63,9 @@ class _HomeScreenState extends State<HomeScreen> {
               return CircularProgressIndicator();
             }),
 
-            Text(
-              'You have pushed the button this many times:',
-            ),
+            // Text(
+            //   'You have pushed the button this many times:',
+            // ),
             // widget to rebuild ui based on some bloc state changes
             // wrap exact part of the ui you want to rebuild
             BlocConsumer<CounterCubit, CounterState>(
@@ -142,6 +142,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     " " +
                     "Internet Disconnected");
               }
+            }),
+            SizedBox(height: 23,),
+            Builder(builder: (context){
+              final counterValue = context.select((CounterCubit cubit) => cubit.state.counterValue);
+              return Text(
+                "Select Counter ${counterValue.toString()}"
+              );
             }),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
