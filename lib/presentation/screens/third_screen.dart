@@ -2,18 +2,16 @@ import 'package:bloc_day_one/logic/cubit/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'second_screen.dart';
-
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.title, this.color}) : super(key: key);
+class ThirdScreen extends StatefulWidget {
+  ThirdScreen({Key key, this.title, this.color}) : super(key: key);
 
   final String title;
   final Color color;
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _ThirdScreenState createState() => _ThirdScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ThirdScreenState extends State<ThirdScreen> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -110,28 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   tooltip: 'Increment',
                   child: Icon(Icons.add),
                 ),
-                SizedBox(
-                  height: 24,
-                ),
+
               ],
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/second');
-              },
-              child: Text(
-                "Go to second screen",
-              ),
-              color: Colors.redAccent,
-            ),
-            MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/third');
-              },
-              child: Text(
-                "Go to third screen",
-              ),
-              color: Colors.greenAccent,
             ),
           ],
         ),
