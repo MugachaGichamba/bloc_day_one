@@ -6,6 +6,7 @@ import 'package:bloc_day_one/presentation/screens/third_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'presentation/router/app_router.dart';
 import 'presentation/screens/home_screen.dart';
 import 'presentation/screens/second_screen.dart';
 
@@ -19,8 +20,9 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final CounterCubit _counterCubit = CounterCubit();
+  // final CounterCubit _counterCubit = CounterCubit();
 
+final AppRouter _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
     // creates and provides a single and unique instance
@@ -34,36 +36,14 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      routes: {
-        '/': (context) => BlocProvider.value(
-          value: _counterCubit,
-          child: HomeScreen(
-                title: "Home Screen",
-                color: Colors.blueAccent,
-              ),
-        ),
-        '/second': (context) => BlocProvider.value(
-          value: _counterCubit,
-          child: SecondScreen(
-                title: "Second Screen",
-                color: Colors.redAccent,
-              ),
-        ),
-        '/third': (context) => BlocProvider.value(
-          value: _counterCubit,
-          child: ThirdScreen(
-                title: "Third Screen",
-                color: Colors.greenAccent,
-              ),
-        ),
-      },
+  onGenerateRoute: _appRouter.onGenerateRoute,
     );
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    _counterCubit.close();
+    _appRouter.dispose();
     super.dispose();
   }
 }
