@@ -11,5 +11,11 @@ class InternetConnected extends InternetState {
   final ConnectionType connectionType;
 
   InternetConnected({this.connectionType});
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "InternetConnected - Connection Type ${connectionType}";
+  }
 }
 class InternetDisconnected extends InternetState {}

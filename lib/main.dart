@@ -3,16 +3,27 @@
 
 import 'package:bloc_day_one/logic/cubit/counter_cubit.dart';
 import 'package:bloc_day_one/logic/cubit/internet_cubit.dart';
+import 'package:bloc_day_one/logic/utility/app_bloc_observer.dart';
 import 'package:bloc_day_one/presentation/screens/third_screen.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'presentation/router/app_router.dart';
 import 'presentation/screens/home_screen.dart';
 import 'presentation/screens/second_screen.dart';
 
-void main() {
+void main() async{
+  // so we can be able to call native code
+  WidgetsFlutterBinding.ensureInitialized();
+
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory:await getApplicationDocumentsDirectory()
+  );
+
+Bloc.observer = AppBlocObserver();
   runApp(MyApp(
     appRouter: AppRouter(),
     connectivity: Connectivity(),

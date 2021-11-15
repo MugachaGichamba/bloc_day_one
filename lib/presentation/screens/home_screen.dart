@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // this is how you access the cubit instance
                     // increment one to current state and emmit new value
                     BlocProvider.of<CounterCubit>(context).decrement();
-                    //     context.bloc<CounterCubit>().decrement();
+                    //     context.read<CounterCubit>().decrement();
                   },
                   tooltip: 'Decrement',
                   child: Icon(Icons.remove),
